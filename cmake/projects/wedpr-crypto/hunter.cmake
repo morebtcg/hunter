@@ -14,9 +14,9 @@ hunter_add_version(
     VERSION
     "1.0.0"
     URL
-    "https://github.com/WeBankBlockchain/WeDPR-Lab-Crypto/archive/eafa357144c6aacb8f53a19c64329c3b2df3f154.tar.gz"
+    "https://github.com/WeBankBlockchain/WeDPR-Lab-Crypto/archive/fd702678baa3a7720f21699b76832fa79def8c1b.tar.gz"
     SHA1
-    8b25cfd08dd3a20c44bbba1f5382bf8ee74f9e19
+    dab0eb7034b226f28ddb51be7915287523e430ff
 )
 
 hunter_cmake_args(
