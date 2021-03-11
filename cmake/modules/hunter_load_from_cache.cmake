@@ -77,9 +77,9 @@ function(hunter_load_from_cache)
   set(basic_deps_done "${cache_meta_dir}/basic-deps.DONE")
   set(basic_deps_info "${cache_meta_dir}/basic-deps.info")
 
-  hunter_download_cache_meta_file(
-      LOCAL "${basic_deps_info}" DONE "${basic_deps_done}"
-  )
+  #hunter_download_cache_meta_file(
+  #    LOCAL "${basic_deps_info}" DONE "${basic_deps_done}"
+  #)
 
   if(NOT EXISTS "${basic_deps_done}")
     hunter_status_debug(
@@ -151,9 +151,9 @@ function(hunter_load_from_cache)
   set(cache_sha1_file "${cache_meta_dir}/cache.sha1")
   set(cache_done_file "${cache_meta_dir}/CACHE.DONE")
 
-  hunter_download_cache_meta_file(
-      LOCAL "${cache_sha1_file}" DONE "${cache_done_file}"
-  )
+  #hunter_download_cache_meta_file(
+  #    LOCAL "${cache_sha1_file}" DONE "${cache_done_file}"
+  #)
 
   if(NOT EXISTS "${cache_done_file}")
     hunter_status_debug(

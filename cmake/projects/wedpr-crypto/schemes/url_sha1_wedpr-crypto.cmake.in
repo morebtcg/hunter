@@ -39,7 +39,10 @@ else()
   set(log_install 0)
 endif()
 set(HUNTER_PACKAGE_SOURCE_DIR "@HUNTER_PACKAGE_SOURCE_DIR@")
-set(WEDRP_CRYPTO_BUILD_COMMAND cargo build --release --features "wedpr_f_hash_keccak256 wedpr_f_signature_sm2 wedpr_f_hash_sm3 wedpr_f_vrf_curve25519 wedpr_f_hex" --no-default-features)
+set(WEDRP_CRYPTO_BUILD_COMMAND cargo build --release --features "wedpr_f_hash_keccak256 wedpr_f_signature_secp256k1 wedpr_f_signature_sm2 wedpr_f_hash_sm3 wedpr_f_vrf_curve25519 wedpr_f_hex" --no-default-features)
+
+set(COMPILE_PATH  "@HUNTER_PACKAGE_SOURCE_DIR@/ffi/ffi_c/ffi_c_crypto")
+
 set(WEDPR_FFI_C_CRYPTO_LIB libffi_c_crypto.a)
 set(WEDPR_INCLUDE_FILE WeDPRCrypto.h)
 ExternalProject_Add(
@@ -55,13 +58,13 @@ ExternalProject_Add(
         SOURCE_DIR 
         "@HUNTER_PACKAGE_SOURCE_DIR@"
         BINARY_DIR
-        "@HUNTER_PACKAGE_SOURCE_DIR@/ffi/ffi_c/ffi_c_crypto"
+        "${COMPILE_PATH}"
         INSTALL_DIR
         "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib"
         CONFIGURE_COMMAND
             ""
         BUILD_COMMAND
-            ${WEDRP_CRYPTO_BUILD_COMMAND}
+            "${WEDRP_CRYPTO_BUILD_COMMAND}"
         INSTALL_COMMAND
         COMMAND
             "@CMAKE_COMMAND@"
@@ -73,7 +76,7 @@ ExternalProject_Add(
             "@CMAKE_COMMAND@"
             -E
             copy
-            "@HUNTER_PACKAGE_SOURCE_DIR@/ffi/ffi_c/ffi_c_crypto/include/${WEDPR_INCLUDE_FILE}"
+            "${COMPILE_PATH}/include/${WEDPR_INCLUDE_FILE}"
             "@HUNTER_PACKAGE_INSTALL_PREFIX@/include/${WEDPR_INCLUDE_FILE}"
         COMMAND
             # Copy license files
