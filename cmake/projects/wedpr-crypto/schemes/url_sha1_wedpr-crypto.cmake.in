@@ -39,12 +39,18 @@ else()
   set(log_install 0)
 endif()
 set(HUNTER_PACKAGE_SOURCE_DIR "@HUNTER_PACKAGE_SOURCE_DIR@")
-set(WEDRP_CRYPTO_BUILD_COMMAND cargo build --release --features "wedpr_f_hash_keccak256 wedpr_f_signature_secp256k1 wedpr_f_signature_sm2 wedpr_f_hash_sm3 wedpr_f_vrf_curve25519 wedpr_f_hex" --no-default-features)
+set(COMPILE_PATH  "@HUNTER_PACKAGE_SOURCE_DIR@/ffi/ffi_c")
+set(WEDPR_CRYPTO_PATH "${COMPILE_PATH}/ffi_c_crypto_binary")
+set(WEDRP_CRYPTO_BUILD_COMMAND cd ${WEDPR_CRYPTO_PATH} && cargo build --release --features "wedpr_f_hash_keccak256 wedpr_f_signature_secp256k1 wedpr_f_signature_sm2 wedpr_f_hash_sm3 wedpr_f_vrf_curve25519 wedpr_f_crypto_block_cipher_aes wedpr_f_crypto_block_cipher_sm4 wedpr_f_hash_ripemd160 wedpr_f_hash_sha3 wedpr_f_hash_blake2b wedpr_f_signature_ed25519" --no-default-features)
 
-set(COMPILE_PATH  "@HUNTER_PACKAGE_SOURCE_DIR@/ffi/ffi_c/ffi_c_crypto")
+set(WEDRP_EXTEND_CRYPTO_PATH "${COMPILE_PATH}/ffi_c_fisco_bcos")
+set(WEDRP_EXTEND_CRYPTO_COMMAND cd ${WEDRP_EXTEND_CRYPTO_PATH} && cargo build --release)
 
-set(WEDPR_FFI_C_CRYPTO_LIB libffi_c_crypto.a)
-set(WEDPR_INCLUDE_FILE WeDPRCrypto.h)
+
+set(WEDPR_CRYPTO_LIB libffi_c_crypto_binary.a)
+set(WEDPR_EXTEND_CRYPTO_LIB libffi_c_fisco_bcos.a)
+set(WEDPR_INCLUDE_DIR "@HUNTER_PACKAGE_SOURCE_DIR@/third_party/include")
+set(WEDPR_INCLUDE_INSTALL_DST_DIR "@HUNTER_PACKAGE_INSTALL_PREFIX@/include/wedpr-crypto/")
 ExternalProject_Add(
         @HUNTER_EP_NAME@
          URL
@@ -64,20 +70,29 @@ ExternalProject_Add(
         CONFIGURE_COMMAND
             ""
         BUILD_COMMAND
+        COMMAND
             "${WEDRP_CRYPTO_BUILD_COMMAND}"
+        COMMAND
+            "${WEDRP_EXTEND_CRYPTO_COMMAND}"
         INSTALL_COMMAND
         COMMAND
             "@CMAKE_COMMAND@"
             -E
             copy
-            "@HUNTER_PACKAGE_SOURCE_DIR@/target/release/${WEDPR_FFI_C_CRYPTO_LIB}"
-            "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${WEDPR_FFI_C_CRYPTO_LIB}"
+            "@HUNTER_PACKAGE_SOURCE_DIR@/target/release/${WEDPR_CRYPTO_LIB}"
+            "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${WEDPR_CRYPTO_LIB}"
         COMMAND
             "@CMAKE_COMMAND@"
             -E
             copy
-            "${COMPILE_PATH}/include/${WEDPR_INCLUDE_FILE}"
-            "@HUNTER_PACKAGE_INSTALL_PREFIX@/include/${WEDPR_INCLUDE_FILE}"
+            "@HUNTER_PACKAGE_SOURCE_DIR@/target/release/${WEDPR_EXTEND_CRYPTO_LIB}"
+            "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${WEDPR_EXTEND_CRYPTO_LIB}"
+        COMMAND
+            "@CMAKE_COMMAND@"
+            -E
+            copy_directory
+            "${WEDPR_INCLUDE_DIR}"
+            "${WEDPR_INCLUDE_INSTALL_DST_DIR}"
         COMMAND
             # Copy license files
             "@CMAKE_COMMAND@"
@@ -93,7 +108,9 @@ ExternalProject_Add(
 set(build_config_type "Release")
 string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
 set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
-set(TARGET_LIB_FILE "${WEDPR_FFI_C_CRYPTO_LIB}")
+set(TARGET_CRYPTO_LIB_FILE "${WEDPR_CRYPTO_LIB}")
+set(TARGET_EXTEND_CRYPTO_LIB_FILE "${WEDPR_EXTEND_CRYPTO_LIB}")
+
 set(HUNTER_SELF "@HUNTER_SELF@")  
 hunter_install_wedpr_crypto_targets()
 
