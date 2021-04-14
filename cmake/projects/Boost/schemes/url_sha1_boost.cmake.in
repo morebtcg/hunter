@@ -80,10 +80,7 @@ if("@MINGW@")
 endif()
 if(APPLE)
   # Clear Xcode environment
-  set(
-      bootstrap_cmd
-      . "@HUNTER_GLOBAL_SCRIPT_DIR@/clear-all.sh" && ${bootstrap_cmd}
-  )
+  set(bootstrap_cmd ${bootstrap_cmd} --with-toolset=clang)
 elseif(compiler_is_clang AND NOT CMAKE_CROSSCOMPILING)
   list(APPEND bootstrap_cmd "--with-toolset=clang")
 endif()

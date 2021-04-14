@@ -202,6 +202,18 @@ hunter_add_version(
     SHA1
     6109efd3bdd8b9220d7d85b5e125f7f28721b9a9
 )
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.76.0-b1"
+    URL
+    "${_hunter_boost_base_url}/1.76.0/source/boost_1_76_0_rc1.tar.bz2"
+    SHA1
+    fb37d4b41872cf7d538ba96e98bcb95b3d78b79d
+)
+
 # up until 1.63 sourcefourge was used
 set(_hunter_boost_base_url "https://downloads.sourceforge.net/project/boost/boost/")
 hunter_add_version(
@@ -468,7 +480,7 @@ if(NOT HUNTER_Boost_VERSION VERSION_LESS 1.72.0)
         else()
             option(Boost_USE_STATIC_LIBS "Use of the static libraries" OFF)
         endif()
-        
+
         if(MSVC)
             if(boost_static_runtime LESS 0)
                 option(Boost_USE_STATIC_RUNTIME "Use libraries linked statically to the C++ runtime" OFF)
