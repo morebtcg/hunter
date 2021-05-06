@@ -15,6 +15,7 @@ set(Boost_NO_SYSTEM_PATHS ON)
 
 # use base url for official boost releases
 set(_hunter_boost_base_url "https://dl.bintray.com/boostorg/release")
+set(_hunter_sourceforge_boost_base_url "https://nchc.dl.sourceforge.net/project/boost/boost")
 
 hunter_add_version(
     PACKAGE_NAME
@@ -212,6 +213,17 @@ hunter_add_version(
     "${_hunter_boost_base_url}/1.76.0/source/boost_1_76_0_rc1.tar.bz2"
     SHA1
     fb37d4b41872cf7d538ba96e98bcb95b3d78b79d
+)
+
+hunter_add_version(
+    PACKAGE_NAME
+    Boost
+    VERSION
+    "1.76.0"
+    URL
+    "${_hunter_boost_base_url}/1.76.0/source/boost_1_76_0.tar.bz2 ${_hunter_sourceforge_boost_base_url}/1.76.0/boost_1_76_0.tar.bz2"
+    SHA1
+    8064156508312dde1d834fec3dca9b11006555b6
 )
 
 # up until 1.63 sourcefourge was used
