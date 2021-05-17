@@ -15,9 +15,9 @@ hunter_add_version(
     VERSION
     3.0.0
     URL
-    "https://github.com/FISCO-BCOS/bcos-crypto/archive/7105847c29ef622a32c5b906179f097bbd9d9ee5.tar.gz"
+    "https://github.com/FISCO-BCOS/bcos-crypto/archive/43df75238d143b9c892b5810f10997841ed01ef3.tar.gz"
     SHA1
-    caa27b71bf55dc9c534a86053f84ec5d8d250d94
+    0d041d392a113339b0e2f2bbc7a7ba9e326c99d3
 )
 
 hunter_cmake_args(

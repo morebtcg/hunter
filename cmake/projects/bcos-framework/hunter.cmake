@@ -13,18 +13,11 @@ hunter_add_version(
     PACKAGE_NAME
     bcos-framework
     VERSION
-    3.0.0-bd9af18f
+    3.0.0-78eb4d2f
     URL
-    "https://github.com/FISCO-BCOS/bcos-framework/archive/bd9af18f47b7c0d6644ff5dfb0ba79f8f1d03538.tar.gz"
+    "https://github.com/FISCO-BCOS/bcos-framework/archive/78eb4d2f54388abc7343bd82b569a215e0c56be8.tar.gz"
     SHA1
-    f461d4d0321b2d1f6e23199e8ceb9b2a5d6b5f70
-)
-
-hunter_add_version(
-    PACKAGE_NAME bcos-framework
-    VERSION 3.0.0-03b469ad
-    URL "https://github.com/FISCO-BCOS/bcos-framework/archive/03b469ad7decd9e55f3fc224b6ed918960e57cc9.tar.gz"
-    SHA1 dbd08d8d94992ee3583ffbba50d3eacfbea1a37e
+    9a09e503539ce883c82633756f3f7fea257eb203
 )
 
 hunter_cmake_args(
