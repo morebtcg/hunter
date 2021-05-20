@@ -32,7 +32,7 @@ hunter_assert_not_empty_string("@HUNTER_TLS_VERIFY@")
 
 # Supported macOS architectures:
 # i386, x86_64, ppc, ppc64, arm64
-set(configure_command "./Configure")
+set(configure_command perl ./Configure)
 set(configure_architectures @CMAKE_OSX_ARCHITECTURES@)
 
 if(NOT configure_architectures)
