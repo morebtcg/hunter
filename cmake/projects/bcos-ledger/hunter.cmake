@@ -11,22 +11,22 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    bcos-framework
+    bcos-ledger
     VERSION
-    3.0.0-678d3e12
+    3.0.0-d66e456d
     URL
-    "https://github.com/FISCO-BCOS/bcos-framework/archive/678d3e12eb1f782d3aac29916f0071aa21530db4.tar.gz"
+    "https://github.com/FISCO-BCOS/bcos-ledger/archive/d66e456dba9c1e74db0a0ee4c4790227ccf22b97.tar.gz"
     SHA1
-    ed32f9d3505506539d2e80ee6e675960fbcd88ee
+    828ce31e131be0a4078f2c47515cd1981fb98c1e
 )
 
 hunter_cmake_args(
-    bcos-framework
+    bcos-ledger
     CMAKE_ARGS
     CMAKE_INSTALL_LIBDIR=lib
     CMAKE_INSTALL_BINDIR=bin
     CMAKE_INSTALL_INCLUDEDIR=include
 )
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(bcos-framework)
-hunter_download(PACKAGE_NAME bcos-framework)
+hunter_cacheable(bcos-ledger)
+hunter_download(PACKAGE_NAME bcos-ledger)

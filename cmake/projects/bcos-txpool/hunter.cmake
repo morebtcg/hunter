@@ -11,22 +11,22 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    bcos-framework
+    bcos-txpool
     VERSION
-    3.0.0-678d3e12
+    3.0.0-c891b734
     URL
-    "https://github.com/FISCO-BCOS/bcos-framework/archive/678d3e12eb1f782d3aac29916f0071aa21530db4.tar.gz"
+    "https://github.com/FISCO-BCOS/bcos-txpool/archive/c891b73449f585e023c019a5e4843d854b0ff993.tar.gz"
     SHA1
-    ed32f9d3505506539d2e80ee6e675960fbcd88ee
+    15c92bc98909276f7fc6ac1861dd6e2bf6d69b87
 )
 
 hunter_cmake_args(
-    bcos-framework
+    bcos-txpool
     CMAKE_ARGS
     CMAKE_INSTALL_LIBDIR=lib
     CMAKE_INSTALL_BINDIR=bin
     CMAKE_INSTALL_INCLUDEDIR=include
 )
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(bcos-framework)
-hunter_download(PACKAGE_NAME bcos-framework)
+hunter_cacheable(bcos-txpool)
+hunter_download(PACKAGE_NAME bcos-txpool)

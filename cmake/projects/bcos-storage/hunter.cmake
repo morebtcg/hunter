@@ -11,22 +11,22 @@ include(hunter_pick_scheme)
 
 hunter_add_version(
     PACKAGE_NAME
-    bcos-framework
+    bcos-storage
     VERSION
-    3.0.0-678d3e12
+    3.0.0-4dbdc895
     URL
-    "https://github.com/FISCO-BCOS/bcos-framework/archive/678d3e12eb1f782d3aac29916f0071aa21530db4.tar.gz"
+    "https://github.com/FISCO-BCOS/bcos-storage/archive/4dbdc895a3d8d359cea667c60e2a876697b33dc6.tar.gz"
     SHA1
-    ed32f9d3505506539d2e80ee6e675960fbcd88ee
+    6939056455a99639298545b04d65092d9c386209
 )
 
 hunter_cmake_args(
-    bcos-framework
+    bcos-storage
     CMAKE_ARGS
     CMAKE_INSTALL_LIBDIR=lib
     CMAKE_INSTALL_BINDIR=bin
     CMAKE_INSTALL_INCLUDEDIR=include
 )
 hunter_pick_scheme(DEFAULT url_sha1_cmake)
-hunter_cacheable(bcos-framework)
-hunter_download(PACKAGE_NAME bcos-framework)
+hunter_cacheable(bcos-storage)
+hunter_download(PACKAGE_NAME bcos-storage)
