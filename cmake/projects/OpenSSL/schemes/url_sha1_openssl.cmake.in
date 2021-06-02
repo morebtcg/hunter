@@ -47,7 +47,7 @@ elseif(MINGW)
     set(configure_command ./Configure mingw)
   endif()
 else()
-  set(configure_command ./config)
+  set(configure_command bash ./config)
 endif()
 
 set(skip_includes SKIP_INCLUDES)
