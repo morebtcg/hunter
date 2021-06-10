@@ -13,11 +13,11 @@ hunter_add_version(
     PACKAGE_NAME
     bcos-gateway
     VERSION
-    3.0.0-1fb592e4
+    3.0.0-9600cc23
     URL
-    "https://github.com/FISCO-BCOS/bcos-gateway/archive/1fb592e42d203774714a040e8fc5114102c62c58.tar.gz"
+    "https://github.com/FISCO-BCOS/bcos-gateway/archive/9600cc238c0cdd66646ee2d66c6ccd358ee59ae2.tar.gz"
     SHA1
-    5531d44e036bdea66a00bbf76f3af3d8e111410c
+    6ac1222c229e27d3816df76dba0f8a9938c1a455
 )
 
 hunter_cmake_args(

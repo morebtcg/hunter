@@ -13,11 +13,11 @@ hunter_add_version(
     PACKAGE_NAME
     bcos-front
     VERSION
-    3.0.0-2ed687bb
+    3.0.0-b0e1dc1f
     URL
-    "https://github.com/FISCO-BCOS/bcos-front/archive/2ed687bb6ee2dae018b69c1e01d1e9090e262e1a.tar.gz"
+    "https://github.com/FISCO-BCOS/bcos-front/archive/b0e1dc1f0fe02662b132fb397a7ddfa85a61d9e4.tar.gz"
     SHA1
-    52aebbf7c53a088f44c443244e8def63bf75d61b
+    657b90c4710a9a3c0aa3d1a9abf89ea1e01bceea
 )
 
 hunter_cmake_args(
