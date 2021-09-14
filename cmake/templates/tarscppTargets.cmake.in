@@ -40,7 +40,7 @@ if (NOT TARGET tarscpp::tars2cpp)
 add_executable(tarscpp::tars2cpp IMPORTED)
 set_property(TARGET tarscpp::tars2cpp APPEND PROPERTY IMPORTED_CONFIGURATIONS @TARGET_CONFIGURATION@)
 set_target_properties(tarscpp::tars2cpp PROPERTIES
-  IMPORTED_LOCATION_DEBUG "${_install_dir}/tools/tars2cpp")
+  IMPORTED_LOCATION_@TARGET_CONFIGURATION@ "${_install_dir}/bin/@TARS2CPP@")
 endif()
 
 set(TARSPARSE_LIBRARY_@TARGET_CONFIGURATION@ "${_install_dir}/lib/@TARS_PARSE_LIB@")

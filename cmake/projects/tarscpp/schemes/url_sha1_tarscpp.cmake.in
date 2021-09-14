@@ -42,6 +42,7 @@ set(HUNTER_PACKAGE_SOURCE_DIR "@HUNTER_PACKAGE_SOURCE_DIR@")
 
 set(TARS_INSTALL_PATH "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 set(TARS_LIB_PATH  "${TARS_INSTALL_PATH}/lib")
+set(TARS_TARGET_PATH "${TARS_INSTALL_PATH}/tools")
 set(TARS_INCLUDE_DIR "${TARS_INSTALL_PATH}/include")
 
 set(TARS_INCLUDE_DST_DIR "@HUNTER_PACKAGE_INSTALL_PREFIX@/include")
@@ -49,6 +50,7 @@ set(TARS_INCLUDE_DST_DIR "@HUNTER_PACKAGE_INSTALL_PREFIX@/include")
 set(TARS_PARSE_LIB "libtarsparse.a")
 set(TARS_SERVANT_LIB "libtarsservant.a")
 set(TARS_UTIL_LIB "libtarsutil.a")
+set(TARS2CPP "tars2cpp")
 
 ExternalProject_Add(
         @HUNTER_EP_NAME@
@@ -85,6 +87,12 @@ ExternalProject_Add(
             "${TARS_LIB_PATH}/${TARS_SERVANT_LIB}"
             "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${TARS_SERVANT_LIB}"
         COMMAND
+            "@CMAKE_COMMAND@"
+            -E
+            copy
+            "${TARS_TARGET_PATH}/${TARS2CPP}"
+            "@HUNTER_PACKAGE_INSTALL_PREFIX@/bin/${TARS2CPP}"
+          COMMAND
             "@CMAKE_COMMAND@"
             -E
             copy
