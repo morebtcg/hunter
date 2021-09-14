@@ -1,0 +1,122 @@
+# Copyright (c) 2021, yujiechen
+# All rights reserved.
+
+cmake_minimum_required(VERSION 3.0)
+project(Hunter)
+
+include(ExternalProject) # ExternalProject_Add
+
+# Scheme for download and install tarscpp
+
+list(APPEND CMAKE_MODULE_PATH "@HUNTER_SELF@/cmake/modules")
+include(hunter_status_debug)
+include(hunter_assert_not_empty_string)
+include(hunter_tarscpp_install_tools)
+
+hunter_status_debug("Scheme: url_sha1_tarscpp")
+
+# Check preconditions
+hunter_assert_not_empty_string("@HUNTER_SELF@")
+hunter_assert_not_empty_string("@HUNTER_EP_NAME@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_URL@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SHA1@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_DOWNLOAD_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SOURCE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_LICENSE_DIR@")
+hunter_assert_not_empty_string("@HUNTER_GLOBAL_SCRIPT_DIR@")
+hunter_assert_not_empty_string("@HUNTER_PACKAGE_SCRIPT_DIR@")
+hunter_assert_not_empty_string("@HUNTER_TLS_VERIFY@")
+if("@HUNTER_PACKAGE_LOG_BUILD@")
+  set(log_build 1)
+else()
+  set(log_build 0)
+endif()
+
+if("@HUNTER_PACKAGE_LOG_INSTALL@" OR "@HUNTER_SUPPRESS_LIST_OF_FILES@")
+  set(log_install 1)
+else()
+  set(log_install 0)
+endif()
+set(HUNTER_PACKAGE_SOURCE_DIR "@HUNTER_PACKAGE_SOURCE_DIR@")
+
+set(TARS_INSTALL_PATH "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+set(TARS_LIB_PATH  "${TARS_INSTALL_PATH}/lib")
+set(TARS_INCLUDE_DIR "${TARS_INSTALL_PATH}/include")
+
+set(TARS_INCLUDE_DST_DIR "@HUNTER_PACKAGE_INSTALL_PREFIX@/include")
+
+set(TARS_PARSE_LIB "libtarsparse.a")
+set(TARS_SERVANT_LIB "libtarsservant.a")
+set(TARS_UTIL_LIB "libtarsutil.a")
+
+ExternalProject_Add(
+        @HUNTER_EP_NAME@
+         URL
+        "@HUNTER_PACKAGE_URL@"
+        URL_HASH
+        SHA1=@HUNTER_PACKAGE_SHA1@
+        DOWNLOAD_DIR
+        "@HUNTER_PACKAGE_DOWNLOAD_DIR@"
+         TLS_VERIFY
+        "@HUNTER_TLS_VERIFY@"
+        SOURCE_DIR
+        "@HUNTER_PACKAGE_SOURCE_DIR@"
+        BINARY_DIR
+        "@HUNTER_PACKAGE_SOURCE_DIR@"
+        INSTALL_DIR
+        "${TARS_INSTALL_PATH}"
+        CMAKE_ARGS
+        "-DCMAKE_INSTALL_PREFIX=@HUNTER_PACKAGE_INSTALL_PREFIX@"
+        INSTALL_COMMAND
+          "@CMAKE_COMMAND@"
+          --build .
+          --target install
+        COMMAND
+            "@CMAKE_COMMAND@"
+            -E
+            copy
+            "${TARS_LIB_PATH}/${TARS_PARSE_LIB}"
+            "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${TARS_PARSE_LIB}"
+        COMMAND
+            "@CMAKE_COMMAND@"
+            -E
+            copy
+            "${TARS_LIB_PATH}/${TARS_SERVANT_LIB}"
+            "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${TARS_SERVANT_LIB}"
+        COMMAND
+            "@CMAKE_COMMAND@"
+            -E
+            copy
+            "${TARS_LIB_PATH}/${TARS_UTIL_LIB}"
+            "@HUNTER_PACKAGE_INSTALL_PREFIX@/lib/${TARS_UTIL_LIB}"
+        COMMAND
+            "@CMAKE_COMMAND@"
+            -E
+            copy_directory
+            "${TARS_INCLUDE_DIR}"
+            "${TARS_INCLUDE_DST_DIR}"
+        COMMAND
+            # Copy license files
+            "@CMAKE_COMMAND@"
+            "-C@HUNTER_ARGS_FILE@" # for 'HUNTER_INSTALL_LICENSE_FILES'
+            "-Dsrcdir=@HUNTER_PACKAGE_SOURCE_DIR@"
+            "-Ddstdir=@HUNTER_PACKAGE_LICENSE_DIR@"
+            -P
+            "@HUNTER_SELF@/scripts/try-copy-license.cmake"
+        LOG_BUILD ${log_build}
+        LOG_INSTALL ${log_install}
+)
+
+set(build_config_type "Release")
+string(TOUPPER ${build_config_type} TARGET_CONFIGURATION)
+set(HUNTER_PACKAGE_INSTALL_PREFIX "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+
+set(HUNTER_SELF "@HUNTER_SELF@")
+hunter_install_tarscpp_targets()
+
+set(BUILD_SHARED_LIBS                 "FALSE")
+set(HUNTER_tarscpp_VERSION             "@HUNTER_tarscpp_VERSION@")
+set(HUNTER_PACKAGE_CONFIGURATION_TYPES "@HUNTER_PACKAGE_CONFIGURATION_TYPES@")
+set(HUNTER_PACKAGE_INSTALL_PREFIX      "@HUNTER_PACKAGE_INSTALL_PREFIX@")
+hunter_install_tarscpp_config()
