@@ -44,8 +44,9 @@ set(TARS_INSTALL_PATH "@HUNTER_PACKAGE_INSTALL_PREFIX@")
 set(TARS_LIB_PATH  "${TARS_INSTALL_PATH}/lib")
 set(TARS_TARGET_PATH "${TARS_INSTALL_PATH}/tools")
 set(TARS_INCLUDE_DIR "${TARS_INSTALL_PATH}/include")
+set(TARS_PROTO_INCLUDE_DIR "${TARS_INSTALL_PATH}/tarsproto")
 
-set(TARS_INCLUDE_DST_DIR "@HUNTER_PACKAGE_INSTALL_PREFIX@/include")
+set(TARS_INCLUDE_DST_DIR "@HUNTER_PACKAGE_INSTALL_PREFIX@/include/tarscpp")
 
 set(TARS_PARSE_LIB "libtarsparse.a")
 set(TARS_SERVANT_LIB "libtarsservant.a")
@@ -103,6 +104,12 @@ ExternalProject_Add(
             -E
             copy_directory
             "${TARS_INCLUDE_DIR}"
+            "${TARS_INCLUDE_DST_DIR}"
+        COMMAND
+            "@CMAKE_COMMAND@"
+            -E
+            copy_directory
+            "${TARS_PROTO_INCLUDE_DIR}"
             "${TARS_INCLUDE_DST_DIR}"
         COMMAND
             # Copy license files
